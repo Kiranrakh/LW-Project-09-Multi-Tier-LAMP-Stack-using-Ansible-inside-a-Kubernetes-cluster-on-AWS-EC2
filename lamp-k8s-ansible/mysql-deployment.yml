@@ -15,15 +15,16 @@ spec:
       containers:
         - name: mysql
           image: custom-mysql:v1
+          ports:
+            - containerPort: 3306
           env:
             - name: MYSQL_ROOT_PASSWORD
               value: root
-          ports:
-            - containerPort: 3306
+            - name: MYSQL_DATABASE
+              value: lampdb
           volumeMounts:
             - mountPath: /var/lib/mysql
               name: mysql-storage
       volumes:
         - name: mysql-storage
-          persistentVolumeClaim:
-            claimName: mysql-pvc
+          emptyDir: {}
