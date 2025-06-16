@@ -12,12 +12,12 @@ spec:
       labels:
         app: apache-php
     spec:
+      hostNetwork: true
       containers:
         - name: apache-php
           image: custom-apache-php:v1
           ports:
             - containerPort: 80
-
 ---
 apiVersion: v1
 kind: Service
@@ -27,8 +27,6 @@ spec:
   selector:
     app: apache-php
   ports:
-    - protocol: TCP
-      port: 80
+    - port: 80
       targetPort: 80
-      nodePort: 30080
-  type: NodePort
+  clusterIP: None
